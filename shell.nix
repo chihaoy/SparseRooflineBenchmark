@@ -53,12 +53,12 @@ pkgs.mkShell {
     pkgs.gcc
     (pkgs.stdenv.mkDerivation rec {
       name = "binsparse-reference-c";
-      version = "unstable-2024-10-30";
+      version = "unstable-2025-03-13";
       src = pkgs.fetchFromGitHub {
         owner = "GraphBLAS";
         repo = "binsparse-reference-c";
-        rev = "cb95ba49c0029d9d15e983293eaf2ef3d63f5766";
-        hash = "sha256-XyTwgOPkdeDiaOI4Zvs+/wbO5+1qvzMr+LJY/mAS+CE=";
+        rev = "fbf3902a2aa378477a35adc4315f006fd18f07ee";
+        hash = "sha256-gnNuc0+dRxj8MIaA+DufJOJgwpKu+Nmc0HrR84/pGao=";
       };
       
       propagatedBuildInputs = with pkgs; [ hdf5 cjson ];

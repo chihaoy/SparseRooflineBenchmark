@@ -66,18 +66,19 @@
 
             (pkgs.stdenv.mkDerivation rec {
               name = "binsparse-reference-c";
-              version = "unstable-2024-10-30";
+              version = "unstable-2025-03-13";
               src = pkgs.fetchFromGitHub {
                 owner = "GraphBLAS";
                 repo = "binsparse-reference-c";
-                rev = "cb95ba49c0029d9d15e983293eaf2ef3d63f5766";
-                hash = "sha256-XyTwgOPkdeDiaOI4Zvs+/wbO5+1qvzMr+LJY/mAS+CE=";
+                rev = "fbf3902a2aa378477a35adc4315f006fd18f07ee";
+                hash = "sha256-gnNuc0+dRxj8MIaA+DufJOJgwpKu+Nmc0HrR84/pGao=";
               };
 
               propagatedBuildInputs = with pkgs; [ hdf5 cjson ];
               nativeBuildInputs = [ pkgs.cmake ];
               # clang doesn't handle -fext-numeric-literals, so we only want it for gcc
-              CXXFLAGS = if builtins.elem system ["x86_64-linux" "aarch64-linux"] then "-fext-numeric-literals" else "";
+              # On the other hand, clang doesn't like implicit conversions
+              CXXFLAGS = if builtins.elem system ["x86_64-linux" "aarch64-linux"] then "-fext-numeric-literals" else "-fpermissive -fheinous-gnu-extensions";
               #use nix-provided cjson rather than downloading a new copy
               patchPhase = ''
                 sed -i '29,34d' CMakeLists.txt
